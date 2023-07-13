@@ -15,12 +15,18 @@ public class HealthVeiwChenger : MonoBehaviour
     {
         _slider = GetComponentInChildren<Slider>();
         _slider.value = _player.Health;
-        _speed = 1;
+        _speed = 0.25f;
     }
 
     private void OnEnable()
     {
-        _player.OnHealthChange += UpdateHealth;
+        _player.HealthChanged += UpdateHealth;
+        _coroutine = null;
+    }
+
+    private void OnDisable()
+    {
+        _player.HealthChanged -= UpdateHealth;
         _coroutine = null;
     }
 
